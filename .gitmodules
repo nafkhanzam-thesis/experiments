@@ -1,3 +1,9 @@
 [submodule "xl-amr-id"]
 	path = xl-amr-id
 	url = git@github.com:nafkhanzam-thesis/xl-amr-id.git
+[submodule "AMRBART"]
+	path = AMRBART
+	url = git@github.com:nafkhanzam-thesis/AMRBART.git
+[submodule "AMR-Process"]
+	path = AMR-Process
+	url = git@github.com:nafkhanzam-thesis/AMR-Process.git
