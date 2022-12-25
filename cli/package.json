@@ -1,0 +1,79 @@
+{
+  "name": "oclif-template",
+  "version": "0.0.1",
+  "description": "Freeze your dependencies in `package.json`.",
+  "author": "Moch. Nafkhan Alzamzami @nafkhanzam",
+  "bin": {
+    "oex": "./bin/run.js"
+  },
+  "homepage": "https://github.com/nafkhanzam/oclif-template",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "nafkhanzam/oclif-template",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "type": "module",
+  "dependencies": {
+    "@oclif/core": "1.22.0",
+    "@oclif/plugin-help": "5.1.20",
+    "@oclif/plugin-plugins": "2.1.9"
+  },
+  "devDependencies": {
+    "@nafkhanzam/nz-cli": "0.0.29",
+    "@types/bcrypt": "5.0.0",
+    "@types/express": "4.17.15",
+    "@types/fs-extra": "9.0.13",
+    "@types/jest": "29.2.4",
+    "@types/node": "18.11.17",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
+    "eslint": "8.30.0",
+    "eslint-config-oclif": "4.0.0",
+    "eslint-config-oclif-typescript": "1.0.3",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "globby": "11.1.0",
+    "jest": "29.3.1",
+    "nyc": "15.1.0",
+    "oclif": "3.4.2",
+    "prettier": "2.8.1",
+    "shx": "0.3.4",
+    "ts-jest": "29.0.3",
+    "ts-node": "10.9.1",
+    "tsconfig-paths-jest": "0.0.1",
+    "tslib": "2.4.1",
+    "typescript": "4.9.4"
+  },
+  "oclif": {
+    "bin": "oex",
+    "dirname": "oex",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " "
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "pnpm lint",
+    "prepack": "pnpm build && oclif manifest && oclif readme",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/nafkhanzam/oclif-template/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
