@@ -20,7 +20,7 @@ import url from "node:url";
 
 export function* tqdm<T>(array: T[]): Generator<T> {
   const progress = new cliProgress.SingleBar(
-    {linewrap: true},
+    {linewrap: true, autopadding: true},
     cliProgress.Presets.rect,
   );
 
@@ -38,7 +38,7 @@ export async function tqdmPromises<T>(
   array: [string, Promise<T>][],
 ): Promise<void> {
   const progress = new cliProgress.MultiBar(
-    {linewrap: true},
+    {linewrap: true, autopadding: true},
     {
       ...cliProgress.Presets.rect,
       format: ` {bar}\u25A0 {percentage}% | {label}`,
