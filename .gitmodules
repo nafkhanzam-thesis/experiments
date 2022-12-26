@@ -7,3 +7,6 @@
 [submodule "AMR-Process"]
 	path = AMR-Process
 	url = git@github.com:nafkhanzam-thesis/AMR-Process.git
+[submodule "transition-amr-parser"]
+	path = transition-amr-parser
+	url = git@github.com:nafkhanzam-thesis/transition-amr-parser.git
