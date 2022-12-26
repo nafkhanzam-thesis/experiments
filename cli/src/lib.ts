@@ -3,7 +3,8 @@ export {dirTree};
 
 export {default as globby} from "globby";
 
-export * as zod from "zod";
+import * as zod from "zod";
+export {zod};
 
 import fs from "fs-extra";
 export {fs};
@@ -20,7 +21,7 @@ import url from "node:url";
 
 export function* tqdm<T>(array: T[]): Generator<T> {
   const progress = new cliProgress.SingleBar(
-    {linewrap: true, autopadding: true},
+    {linewrap: false, autopadding: true},
     cliProgress.Presets.rect,
   );
 
@@ -38,7 +39,7 @@ export async function tqdmPromises<T>(
   array: [string, Promise<T>][],
 ): Promise<void> {
   const progress = new cliProgress.MultiBar(
-    {linewrap: true, autopadding: true},
+    {linewrap: false, autopadding: true},
     {
       ...cliProgress.Presets.rect,
       format: ` {bar}\u25A0 {percentage}% | {label}`,
@@ -88,4 +89,28 @@ export function cartesianProduct<T extends unknown[]>(
 
 export function getCwd(): string {
   return path.dirname(url.fileURLToPath(import.meta.url));
+}
+
+export async function validateFileList(
+  rawFileList: unknown,
+): Promise<
+  {success: true; filePaths: string[]} | {success: false; errorMsg: string}
+> {
+  const filePaths = zod.string().array().parse(rawFileList);
+  const notFoundList: string[] = [];
+  for (const filePath of filePaths) {
+    if (!isValidFile(filePath)) {
+      notFoundList.push(filePath);
+    }
+  }
+
+  if (notFoundList.length > 0) {
+    const notFoundListStr = notFoundList.map((v) => `> ${v}`).join("\n");
+    return {
+      success: false,
+      errorMsg: `This file(s) was not found:\n${notFoundListStr}`,
+    };
+  }
+
+  return {success: true, filePaths};
 }

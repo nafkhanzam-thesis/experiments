@@ -1,0 +1,7 @@
+[
+  "data/IWSLT17.train.en-id/IWSLT17.train.en-id.id",
+  "data/PANL-BPPT-ECO-EN-ID-150Kw/PANL-BPPT-ECO-ID-150Kw.txt",
+  "data/PANL-BPPT-INT-EN-ID-150Kw/PANL-BPPT-INT-ID-150Kw.txt",
+  "data/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-ID-100Kw.txt",
+  "data/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-ID-100Kw.txt"
+]
