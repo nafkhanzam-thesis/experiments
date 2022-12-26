@@ -1,5 +1,6 @@
 #!/usr/bin/env ts-node
 
+import "./startup.js";
 import oclif from "@oclif/core";
 import path from "node:path";
 import url from "node:url";

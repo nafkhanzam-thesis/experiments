@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "./startup.js";
 import oclif from "@oclif/core";
 
 oclif
