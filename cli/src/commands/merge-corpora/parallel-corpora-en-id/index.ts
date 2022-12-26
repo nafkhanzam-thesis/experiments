@@ -43,11 +43,9 @@ export default class MergeCorporaEnId extends Command {
     }
 
     this.log(`Processing ${label} corpora...`);
-    await MergeCorpora.run(
-      [
-        res.filePaths.map((filePath) => [`--glob`, filePath]).flat(),
-        [`--out`, path.join(outDir, `corpora.${label}.txt`)],
-      ].flat(),
+    MergeCorpora.runProcess(
+      res.filePaths,
+      path.join(outDir, `corpora.${label}.txt`),
     );
   }
 }

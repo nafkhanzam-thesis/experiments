@@ -29,15 +29,18 @@ export default class MergeCorpora extends Command {
     }
 
     this.log(`Processing the job...`);
+    MergeCorpora.runProcess(filePaths, flags.out);
+
+    this.log("DONE.");
+  }
+
+  static runProcess(filePaths: string[], out: string): void {
     const lines: string[] = [];
     for (const filePath of filePaths) {
-      this.log(`Reading ${filePath}...`);
       const nextLines = String(fs.readFileSync(filePath)).split("\n");
       lines.push(...nextLines);
     }
-    fs.ensureFileSync(flags.out);
-    fs.writeFileSync(flags.out, lines.join("\n"));
-
-    this.log(`DONE.`);
+    fs.ensureFileSync(out);
+    fs.writeFileSync(out, lines.join("\n"));
   }
 }

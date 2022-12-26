@@ -1,6 +1,11 @@
 import {Command, Flags} from "@oclif/core";
 import {AMRDataset, DataCategory} from "../../../constants.js";
-import {cartesianProduct, listFormat, path} from "../../../lib.js";
+import {
+  cartesianProduct,
+  listFormat,
+  path,
+  tqdmPromises,
+} from "../../../lib.js";
 import AmrProcessCommand from "../index.js";
 
 const amrDatasets = listFormat(Object.values(AMRDataset));
@@ -22,20 +27,28 @@ export default class AmrProcessLdcCommand extends Command {
       Object.values(AMRDataset),
       Object.values(DataCategory),
     );
-    for (const [dataset, category] of comb) {
-      const inputFile = path.join(
-        `data`,
-        String(dataset),
-        `/data/amrs/split`,
-        String(category),
-        `*.txt`,
-      );
-      await AmrProcessCommand.run(
-        [
-          [`--glob`, inputFile],
-          [`--outDir`, flags.outDir],
-        ].flat(),
-      );
-    }
+    const promises: [string, PromiseLike<void>][] = comb.map(
+      ([dataset, category]) => {
+        const globInput = path.join(
+          `data`,
+          String(dataset),
+          `data/amrs/split`,
+          String(category),
+          `*.txt`,
+        );
+
+        const label = `${dataset}/${category}`;
+
+        return [
+          label,
+          AmrProcessCommand.runScript({
+            globInput,
+            outPrefix: path.join(flags.outDir, label),
+          }),
+        ];
+      },
+    );
+
+    await tqdmPromises(promises);
   }
 }

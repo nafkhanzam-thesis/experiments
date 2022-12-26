@@ -36,7 +36,7 @@ export function* tqdm<T>(array: T[]): Generator<T> {
 }
 
 export async function tqdmPromises<T>(
-  array: [string, Promise<T>][],
+  array: [string, PromiseLike<T>][],
 ): Promise<void> {
   const progress = new cliProgress.MultiBar(
     {linewrap: false, autopadding: true},
