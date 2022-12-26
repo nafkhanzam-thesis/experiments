@@ -10,7 +10,7 @@ import {
   path,
   zod,
 } from "../../lib.js";
-import rawInputValidation from "./input-validation.json" assert {type: "json"};
+import rawLdcFileList from "./ldc-file-list.json" assert {type: "json"};
 
 const amrDatasets = listFormat(Object.values(AMRDataset));
 
@@ -24,7 +24,7 @@ export default class AmrProcessCommand extends Command {
     }),
     outDir: Flags.string({
       description: `Output directory.`,
-      default: `outputs/1-amr-process`,
+      default: `outputs/amr-process-ldc`,
     }),
     replace: Flags.boolean({
       description: `Replaces the output directory.`,
@@ -46,11 +46,11 @@ export default class AmrProcessCommand extends Command {
     this.log(`Processing the job...`);
     await this.processJob(flags.outDir);
 
-    this.log(`1-amr-process done!`);
+    this.log(`DONE.`);
   }
 
   private async validateInput(dataDir: string): Promise<void> {
-    const inputValidation = zod.string().array().parse(rawInputValidation);
+    const inputValidation = zod.string().array().parse(rawLdcFileList);
     const notFoundList: string[] = [];
     for (const filePath of inputValidation) {
       const filePathRef = path.join(dataDir, filePath);
