@@ -1,0 +1,47 @@
+# ::tok Thank you so much, Chris. And it's truly a great honor to have the opportunity to come to this stage twice; I'm extremely grateful.
+(m2 / multi-sentence~1
+    :snt1 (t / thank-01~0
+        :ARG1 (p / person~4
+            :name (n / name~4
+                :op1 "Chris."~4))
+        :degree (m / much,~3
+            :degree (s / so~2)))
+    :snt2 (a / and~5
+        :ARG1-of (a2 / appreciate-02~23
+            :ARG0 (i / i~21)
+            :degree (e / extreme~22))
+        :op2 (h2 / honor-01~10
+            :ARG1-of (t3 / true-01~7)
+            :ARG2 (h / have-03~12
+                :ARG0 i
+                :ARG1 (o / opportunity~14
+                    :topic (c / come-01~16
+                        :ARG1 i
+                        :ARG4 (s2 / stage~19
+                            :mod (t2 / this~18)))))
+            :mod (g / great~9))))
+
+# ::tok I have been blown away by this conference, and I want to thank all of you for the many nice comments about what I had to say the other night.
+(a2 / and~8
+    :op1 (b / blow-08~3
+        :ARG0 (c2 / conference,~7
+            :mod (t3 / this~6))
+        :ARG1 (i / i~0)
+        :direction (a3 / away~4))
+    :op2 (w / want-01~10
+        :ARG0 i
+        :ARG1 (t / thank-01~12
+            :ARG0 i
+            :ARG1 (y / you~15
+                :mod (a / all~13))
+            :ARG2 (c / comment-01~20
+                :quant (m / many~18)
+                :ARG0 y
+                :ARG1-of (n / nice-01~19)
+                :ARG3 (t2 / thing~22
+                    :ARG1-of (s / say-01~26
+                        :ARG0 i
+                        :time (d / date-entity~28
+                            :dayperiod (n2 / night.~29)
+                            :mod (o / other~28))))))))
+

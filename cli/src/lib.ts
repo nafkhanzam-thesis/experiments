@@ -17,6 +17,8 @@ export {execa, execaSync, execaCommand, execaCommandSync} from "execa";
 import path from "node:path";
 export {path};
 
+export * as streamPromises from "stream/promises";
+
 import url from "node:url";
 
 export function* tqdm<T>(array: T[]): Generator<T> {
