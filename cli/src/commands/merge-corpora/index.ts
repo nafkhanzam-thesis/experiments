@@ -37,7 +37,9 @@ export default class MergeCorpora extends Command {
   static runProcess(filePaths: string[], out: string): void {
     const lines: string[] = [];
     for (const filePath of filePaths) {
-      const nextLines = String(fs.readFileSync(filePath)).split("\n");
+      const nextLines = String(fs.readFileSync(filePath))
+        .split("\n")
+        .filter((v) => v);
       lines.push(...nextLines);
     }
     fs.ensureFileSync(out);

@@ -73,6 +73,7 @@ export default class AmrParseCorporaEnCommand extends Command {
     this.log(`Adding sentences...`);
     AmrParseAddSntCommand.runProcess({
       inputFile: flags.outputFile,
+      sentencesFile: flags.inputFile,
       outputFile: flags.outputFile,
     });
 
