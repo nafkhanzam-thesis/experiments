@@ -16,7 +16,7 @@ export default class AmrProcessLdcCommand extends Command {
   static override flags = {
     outDir: Flags.string({
       description: `Output directory.`,
-      default: `outputs/amr-process-ldc`,
+      default: `outputs/amr-process`,
     }),
   };
 

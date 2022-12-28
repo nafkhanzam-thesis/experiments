@@ -1,5 +1,6 @@
 import {Command, Flags} from "@oclif/core";
 import {fs, path, tqdm2, validateFileList} from "../../../lib";
+import AmrParseAddSntCommand from "../add-snt";
 import MbseAmrParseCommand from "../mbse";
 import rawFileList from "./file-list.json" assert {type: "json"};
 
@@ -67,7 +68,13 @@ export default class AmrParseCorporaEnCommand extends Command {
       const readBuf = fs.readFileSync(outFile);
       concatted.push(readBuf);
     }
-    fs.writeFileSync(flags.outputFile, concatted.join());
+    fs.writeFileSync(flags.outputFile, concatted.join(""));
+
+    this.log(`Adding sentences...`);
+    AmrParseAddSntCommand.runProcess({
+      inputFile: flags.outputFile,
+      outputFile: flags.outputFile,
+    });
 
     this.log(`DONE.`);
   }
