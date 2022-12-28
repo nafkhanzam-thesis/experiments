@@ -110,8 +110,10 @@ export default class AmrParseCorporaEnCommand extends Command {
         tmpFileList.push(tmpFile);
         stream = fs.createWriteStream(tmpFile);
       }
-      stream.write(line);
-      stream.write("\n");
+      if (line.length > 0) {
+        stream.write(line);
+        stream.write("\n");
+      }
     }
 
     return tmpFileList;
