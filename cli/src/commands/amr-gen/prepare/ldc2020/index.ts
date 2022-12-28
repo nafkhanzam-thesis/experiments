@@ -1,10 +1,10 @@
 import {Command, Flags} from "@oclif/core";
 import {path, validateFileList} from "../../../../lib.js";
-import AmrGenPrepare from "../index.js";
+import AmrGenPrepareCommand from "../index.js";
 import rawFileList from "./file-list.json" assert {type: "json"};
 
-export default class MergeCorporaEnId extends Command {
-  static override description = `Prepare amr4generation jsonl files.`;
+export default class MergeCorporaEnIdCommand extends Command {
+  static override description = `Prepare linearized LDC2020 to amr4generation jsonl files.`;
 
   static override flags = {
     outDir: Flags.string({
@@ -14,7 +14,7 @@ export default class MergeCorporaEnId extends Command {
   };
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(MergeCorporaEnId);
+    const {flags} = await this.parse(MergeCorporaEnIdCommand);
 
     this.log(`Validating input files...`);
     const res = await validateFileList(rawFileList);
@@ -26,7 +26,7 @@ export default class MergeCorporaEnId extends Command {
 
     this.log(`Generating amr4generation files...`);
     for (const filePath of res.filePaths) {
-      AmrGenPrepare.runProcess(
+      AmrGenPrepareCommand.runProcess(
         [filePath],
         path.join(flags.outDir, path.basename(filePath)),
       );

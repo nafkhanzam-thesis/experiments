@@ -1,8 +1,8 @@
 import {Command, Flags} from "@oclif/core";
 import {fs, globby} from "../../../lib.js";
 
-export default class AmrGenPrepare extends Command {
-  static override description = `Merge corpora into a single file.`;
+export default class AmrGenPrepareCommand extends Command {
+  static override description = `Prepare amr4generation jsonl files.`;
 
   static override flags = {
     glob: Flags.string({
@@ -17,7 +17,7 @@ export default class AmrGenPrepare extends Command {
   };
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(AmrGenPrepare);
+    const {flags} = await this.parse(AmrGenPrepareCommand);
 
     const filePaths = await globby(flags.glob);
 
@@ -29,7 +29,7 @@ export default class AmrGenPrepare extends Command {
     }
 
     this.log(`Processing the job...`);
-    AmrGenPrepare.runProcess(filePaths, flags.out);
+    AmrGenPrepareCommand.runProcess(filePaths, flags.out);
 
     this.log("DONE.");
   }
