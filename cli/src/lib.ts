@@ -12,6 +12,10 @@ export {fs};
 import * as cliProgress from "cli-progress";
 export {cliProgress};
 
+import * as cliProgressBar from "@open-tech-world/cli-progress-bar";
+import type IRunOptions from "@open-tech-world/cli-progress-bar/lib/IRunOptions";
+export {cliProgressBar};
+
 export {execa, execaSync, execaCommand, execaCommandSync} from "execa";
 
 import path from "node:path";
@@ -23,7 +27,7 @@ import url from "node:url";
 
 export function* tqdm<T>(array: T[]): Generator<T> {
   const progress = new cliProgress.SingleBar(
-    {linewrap: false, autopadding: true},
+    {linewrap: false, autopadding: true, forceRedraw: true},
     cliProgress.Presets.rect,
   );
 
@@ -41,7 +45,7 @@ export async function tqdmPromises<T>(
   array: [string, PromiseLike<T>][],
 ): Promise<void> {
   const progress = new cliProgress.MultiBar(
-    {linewrap: false, autopadding: true},
+    {linewrap: false, autopadding: true, forceRedraw: true},
     {
       ...cliProgress.Presets.rect,
       format: ` {bar}\u25A0 {percentage}% | {label}`,
@@ -54,6 +58,31 @@ export async function tqdmPromises<T>(
   }
 
   await Promise.all(array.map(([_, p]) => p));
+
+  progress.stop();
+}
+
+export function* tqdm2<T>(
+  array: T[],
+  opts?: {prefix?: (v: T) => string; suffix?: (v: T) => string},
+): Generator<T> {
+  const progress = new cliProgressBar.ProgressBar({});
+
+  const total = array.length;
+  let value = 0;
+  progress.run({value, total});
+
+  for (const v of array) {
+    yield v;
+    const o: IRunOptions = {value: ++value, total};
+    if (opts?.prefix) {
+      o.prefix = opts.prefix(v);
+    }
+    if (opts?.suffix) {
+      o.suffix = opts.suffix(v);
+    }
+    progress.run(o);
+  }
 
   progress.stop();
 }

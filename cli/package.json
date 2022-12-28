@@ -21,6 +21,7 @@
     "@oclif/core": "1.22.0",
     "@oclif/plugin-help": "5.1.20",
     "@oclif/plugin-plugins": "2.1.9",
+    "@open-tech-world/cli-progress-bar": "2.0.2",
     "cli-progress": "3.11.2",
     "directory-tree": "3.5.1",
     "execa": "6.1.0",
