@@ -8,6 +8,7 @@ do
   OUT="outputs/ldc2020-train-dev+alternatives.en/$i.out"
   if [ -f "$IN" ]; then
     if [ ! -f "$OUT" ]; then
+      touch $OUT;
       echo "Translating $i...";
       python scripts/translate.py \
         -m en-id \
