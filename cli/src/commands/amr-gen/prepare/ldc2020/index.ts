@@ -3,7 +3,7 @@ import {path, validateFileList} from "../../../../lib.js";
 import AmrGenPrepareCommand from "../index.js";
 import rawFileList from "./file-list.json" assert {type: "json"};
 
-export default class MergeCorporaEnIdCommand extends Command {
+export default class AmrGenPrepareLdc2020Command extends Command {
   static override description = `Prepare linearized LDC2020 to amr4generation jsonl files.`;
 
   static override flags = {
@@ -14,7 +14,7 @@ export default class MergeCorporaEnIdCommand extends Command {
   };
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(MergeCorporaEnIdCommand);
+    const {flags} = await this.parse(AmrGenPrepareLdc2020Command);
 
     this.log(`Validating input files...`);
     const res = await validateFileList(rawFileList);

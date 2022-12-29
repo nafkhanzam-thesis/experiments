@@ -1,25 +1,22 @@
 import {Command, Flags} from "@oclif/core";
 import {fs, splitFileInto, tqdm2, validateFileList} from "../../../lib";
-import AmrParseAddSntCommand from "../add-snt";
-import MbseAmrParseCommand from "../mbse";
+import TranslateToIdCommand from "../to-id";
 
-export default class AmrParseCorporaEnCommand extends Command {
-  static override description = `Parse corpora-en to AMR.`;
+export default class TranslateLdc2020Command extends Command {
+  static override description = `Translate LDC2020 train and dev + alternatives into Indonesian texts.`;
 
   static override flags = {
     inputFile: Flags.string({
       description: `Input file.`,
-      required: true,
-      default: `outputs/merge-parallel-corpora-en-id/corpora.en.txt`,
+      default: `outputs/translate/ldc2020-train-dev+alternatives.en`,
     }),
     outputFile: Flags.string({
       description: `Output file.`,
-      required: true,
-      default: `outputs/amr-parse/mbse/corpora.en.amr`,
+      default: `outputs/translate/ldc2020-train-dev+alternatives.id`,
     }),
     batch: Flags.integer({
       description: `Split texts to batches in case of failure.`,
-      default: 32,
+      default: 10000,
     }),
     tempFolder: Flags.string({
       description: `Temporary directory for splitted batches.`,
@@ -28,7 +25,7 @@ export default class AmrParseCorporaEnCommand extends Command {
   };
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(AmrParseCorporaEnCommand);
+    const {flags} = await this.parse(TranslateLdc2020Command);
 
     this.log(`Validating input files...`);
     const res = await validateFileList([flags.inputFile]);
@@ -38,23 +35,25 @@ export default class AmrParseCorporaEnCommand extends Command {
       });
     }
 
+    const inputFile = res.filePaths[0];
+
     this.log(`Splitting into ${flags.batch} batches...`);
     const splitFiles = await splitFileInto({
-      inputFile: flags.inputFile,
+      inputFile,
       tempFolder: flags.tempFolder,
       batch: flags.batch,
     });
 
-    this.log(`Converting to AMR...`);
+    this.log(`Translating...`);
     const outFiles: string[] = [];
-    for (const splitFile of splitFiles) {
+    for (const splitFile of tqdm2(splitFiles, {suffix: (v) => v})) {
       const outFile = `${splitFile}.out`;
       outFiles.push(outFile);
       if (fs.existsSync(outFile)) {
         this.log(`Skipping "${outFile}" as it already exists...`);
         continue;
       }
-      await MbseAmrParseCommand.runProcess({
+      await TranslateToIdCommand.runProcess({
         inputFile: splitFile,
         outputFile: outFile,
       });
@@ -68,13 +67,6 @@ export default class AmrParseCorporaEnCommand extends Command {
       concatted.push(readBuf);
     }
     fs.writeFileSync(flags.outputFile, concatted.join(""));
-
-    this.log(`Adding sentences...`);
-    AmrParseAddSntCommand.runProcess({
-      inputFile: flags.outputFile,
-      sentencesFile: flags.inputFile,
-      outputFile: flags.outputFile,
-    });
 
     this.log(`DONE.`);
   }

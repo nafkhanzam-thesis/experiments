@@ -73,7 +73,6 @@ export function* tqdm2<T>(
   progress.run({value, total});
 
   for (const v of array) {
-    yield v;
     const o: IRunOptions = {value: ++value, total};
     if (opts?.prefix) {
       o.prefix = opts.prefix(v);
@@ -82,6 +81,7 @@ export function* tqdm2<T>(
       o.suffix = opts.suffix(v);
     }
     progress.run(o);
+    yield v;
   }
 
   progress.stop();
@@ -144,4 +144,51 @@ export async function validateFileList(
   }
 
   return {success: true, filePaths};
+}
+
+export async function splitFileInto(a: {
+  inputFile: string;
+  tempFolder: string;
+  batch: number;
+}): Promise<string[]> {
+  const tmpFileList: string[] = [];
+
+  const lines = String(fs.readFileSync(a.inputFile)).split("\n");
+  let stream: fs.WriteStream | null = null;
+  let currBatch = 0;
+  for (let i = 0; i < lines.length; ++i) {
+    const line = lines[i];
+    const lastIndex = Math.ceil(lines.length / a.batch) * (currBatch + 1);
+    if (i > lastIndex) {
+      ++currBatch;
+      if (stream) {
+        stream.end();
+        await new Promise((resolve, reject) => {
+          if (!stream) {
+            return reject(new Error(`stream is null.`));
+          }
+          stream.on("finish", resolve);
+          stream.on("close", reject);
+        });
+        stream = null;
+      }
+    }
+    if (!stream) {
+      const tmpFile = path.join(a.tempFolder, a.inputFile, String(currBatch));
+      tmpFileList.push(tmpFile);
+      if (fs.existsSync(tmpFile)) {
+        i = lastIndex;
+        ++currBatch;
+        continue;
+      }
+      fs.ensureFileSync(tmpFile);
+      stream = fs.createWriteStream(tmpFile);
+    }
+    if (line.length > 0) {
+      stream.write(line);
+      stream.write("\n");
+    }
+  }
+
+  return tmpFileList;
 }

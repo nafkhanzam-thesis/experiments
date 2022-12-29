@@ -33,6 +33,7 @@ export default class TranslateToIdCommand extends Command {
   }): Promise<void> {
     fs.ensureDirSync(path.dirname(a.outputFile));
     const scriptStr = `python scripts/translate.py \
+      -m en-id \
       -i ${a.inputFile} \
       -o ${a.outputFile}`;
     await execaCommand(scriptStr);

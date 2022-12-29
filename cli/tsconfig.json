@@ -12,6 +12,7 @@
     "rootDir": "src",
     "strict": true,
     "resolveJsonModule": true,
+    "lib": ["ES2021"],
     // "noUnusedLocals": true,
     "removeComments": true,
     "preserveConstEnums": true,
