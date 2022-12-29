@@ -2,7 +2,7 @@
 
 echo "Translating $1..to..$2";
 
-for (( i=$1;i<=$2;++i ))
+for (( i=$1; $(( $1 > $2 ? i>=$2 : i<=$2 )); i=$(( $1 > $2 ? $i - 1 : $i + 1 )) ))
 do
   IN="outputs/ldc2020-train-dev+alternatives.en/$i"
   OUT="outputs/ldc2020-train-dev+alternatives.en/$i.out"
