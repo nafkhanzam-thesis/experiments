@@ -50,7 +50,7 @@ export default class TranslateLdc2020Command extends Command {
       const outFile = `${splitFile}.out`;
       outFiles.push(outFile);
       if (fs.existsSync(outFile)) {
-        this.log(`Skipping "${outFile}" as it already exists...`);
+        // this.log(`Skipping "${outFile}" as it already exists...`);
         continue;
       }
       await TranslateToIdCommand.runProcess({

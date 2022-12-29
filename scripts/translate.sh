@@ -1,4 +1,8 @@
-for i in {1..10000}
+#! /bin/bash
+
+echo "Translating $1..to..$2";
+
+for (( i=$1;i<=$2;++i ))
 do
   IN="outputs/ldc2020-train-dev+alternatives.en/$i"
   OUT="outputs/ldc2020-train-dev+alternatives.en/$i.out"
