@@ -17,3 +17,5 @@ smatch
 wandb
 amrlib
 PyYAML>=5.1
+sentencepiece
+sacremoses
