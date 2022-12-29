@@ -4,7 +4,7 @@ from transformers import MarianMTModel, MarianTokenizer
 
 def create_translate_fn(model_name):
     tokenizer = MarianTokenizer.from_pretrained(model_name)
-    model = MarianMTModel.from_pretrained(model_name)
+    model = MarianMTModel.from_pretrained(model_name).to("cuda:0")
 
     def translate(en_text_list):
         translated = model.generate(max_new_tokens=528,
