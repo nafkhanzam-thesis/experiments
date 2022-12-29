@@ -6,8 +6,8 @@ for (( i=$1;i<=$2;++i ))
 do
   IN="outputs/ldc2020-train-dev+alternatives.en/$i"
   OUT="outputs/ldc2020-train-dev+alternatives.en/$i.out"
-  if [ -f "$IN" ]; then
-    if [ ! -f "$OUT" ]; then
+  if [ -e "$IN" ]; then
+    if [ ! -e $OUT ]; then
       touch $OUT;
       echo "Translating $i...";
       python scripts/translate.py \
