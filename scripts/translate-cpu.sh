@@ -5,7 +5,7 @@ MODEL=$2
 a=$3
 b=$4
 
-echo "Translating $a..to..$b";
+echo "Translating [$a, $b)";
 
 for (( i=$a; i<$b; ++i ))
 do
