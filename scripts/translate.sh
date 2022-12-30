@@ -7,7 +7,7 @@ b=$4
 
 echo "Translating $a..to..$b";
 
-for (( i=$a; $(( $a > $b ? i>=$b : i<=$b )); i=$(( $a > $b ? $i - 1 : $i + 1 )) ))
+for (( i=$a; i<$b; ++i ))
 do
   IN="$CWD/$i"
   OUT="$CWD/$i.out"
