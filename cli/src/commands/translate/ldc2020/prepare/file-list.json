@@ -1,6 +1,6 @@
 [
-  "outputs/amr-process/LDC2020/dev.txt",
-  "outputs/amr-process/LDC2020/training.txt",
-  "outputs/amr-gen/ldc2020/dev.txt",
-  "outputs/amr-gen/ldc2020/training.txt"
+  "data/outputs/amr-process/LDC2020/dev.txt",
+  "data/outputs/amr-process/LDC2020/training.txt",
+  "data/outputs/amr-gen/ldc2020/dev.txt",
+  "data/outputs/amr-gen/ldc2020/training.txt"
 ]

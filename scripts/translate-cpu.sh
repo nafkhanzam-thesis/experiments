@@ -1,11 +1,15 @@
 #! /bin/bash
 
-echo "Translating $1..to..$2";
+cwd=$1
+a=$2
+b=$3
 
-for (( i=$1; $(( $1 > $2 ? i>=$2 : i<=$2 )); i=$(( $1 > $2 ? $i - 1 : $i + 1 )) ))
+echo "Translating $a..to..$b";
+
+for (( i=$a; $(( $a > $b ? i>=$b : i<=$b )); i=$(( $a > $b ? $i - 1 : $i + 1 )) ))
 do
-  IN="outputs/ldc2020-train-dev+alternatives.en/$i"
-  OUT="outputs/ldc2020-train-dev+alternatives.en/$i.out"
+  IN="$cwd/$i"
+  OUT="$cwd/$i.out"
   if [ -e "$IN" ]; then
     if [ ! -e $OUT ]; then
       echo "Translating $i...";

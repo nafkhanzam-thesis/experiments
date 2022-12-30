@@ -1,6 +1,7 @@
 import {Command, Flags} from "@oclif/core";
+import {commons} from "../../../commons.js";
 import {AMRDataset} from "../../../constants.js";
-import {listFormat} from "../../../lib.js";
+import {listFormat, path} from "../../../lib.js";
 import AmrProcessCommand from "../index.js";
 
 const amrDatasets = listFormat(Object.values(AMRDataset));
@@ -11,11 +12,14 @@ export default class AmrProcessCorporaCommand extends Command {
   static override flags = {
     inputFile: Flags.string({
       description: `Input file.`,
-      default: `outputs/amr-parse/mbse/corpora.en.amr`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `amr-parse/mbse/corpora.en.amr`,
+      ),
     }),
     outDir: Flags.string({
       description: `Output directory.`,
-      default: `outputs/amr-process/corpora`,
+      default: path.join(commons.OUTPUTS_DIRECTORY, `amr-process/corpora`),
     }),
   };
 

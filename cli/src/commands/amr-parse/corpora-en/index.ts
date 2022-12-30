@@ -1,5 +1,6 @@
 import {Command, Flags} from "@oclif/core";
-import {fs, splitFileInto, tqdm2, validateFileList} from "../../../lib";
+import {commons} from "../../../commons";
+import {fs, path, splitFileInto, tqdm2, validateFileList} from "../../../lib";
 import AmrParseAddSntCommand from "../add-snt";
 import MbseAmrParseCommand from "../mbse";
 
@@ -10,12 +11,18 @@ export default class AmrParseCorporaEnCommand extends Command {
     inputFile: Flags.string({
       description: `Input file.`,
       required: true,
-      default: `outputs/merge-parallel-corpora-en-id/corpora.en.txt`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `merge-parallel-corpora-en-id/corpora.en.txt`,
+      ),
     }),
     outputFile: Flags.string({
       description: `Output file.`,
       required: true,
-      default: `outputs/amr-parse/mbse/corpora.en.amr`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `amr-parse/mbse/corpora.en.amr`,
+      ),
     }),
     batch: Flags.integer({
       description: `Split texts to batches in case of failure.`,
@@ -23,7 +30,7 @@ export default class AmrParseCorporaEnCommand extends Command {
     }),
     tempFolder: Flags.string({
       description: `Temporary directory for splitted batches.`,
-      default: `outputs/tmp`,
+      default: commons.TMP_DIRECTORY,
     }),
   };
 

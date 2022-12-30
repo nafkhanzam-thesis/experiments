@@ -18,9 +18,8 @@ def create_translate_fn(model_name):
         tokenizer_output = tokenizer(
             en_text_list, return_tensors="pt", padding=True)
         tokenizer_output = assign_GPU(tokenizer_output)
-        translated = model.generate(max_new_tokens=528,
-                                    **tokenizer_output)
-        return [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
+        translated = model.generate(max_new_tokens=512, **tokenizer_output)
+        return tokenizer.batch_decode(translated, skip_special_tokens=True)
 
     return translate
 
@@ -32,10 +31,7 @@ model_map = {
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        prog='ProgramName',
-        description='What the program does',
-        epilog='Text at the bottom of help')
+    parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input-file')
     parser.add_argument('-o', '--output-file')
     parser.add_argument('-m', '--model')

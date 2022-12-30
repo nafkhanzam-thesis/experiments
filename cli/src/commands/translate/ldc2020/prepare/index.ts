@@ -1,5 +1,6 @@
 import {Command, Flags} from "@oclif/core";
-import {fs, tqdm2, validateFileList} from "../../../../lib.js";
+import {commons} from "../../../../commons.js";
+import {fs, path, tqdm2, validateFileList} from "../../../../lib.js";
 import rawFileList from "./file-list.json" assert {type: "json"};
 
 export default class TranslateLdc2020PrepareCommand extends Command {
@@ -8,7 +9,10 @@ export default class TranslateLdc2020PrepareCommand extends Command {
   static override flags = {
     outputFile: Flags.string({
       description: `Output file.`,
-      default: `outputs/translate/ldc2020-train-dev+alternatives.en`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `translate/ldc2020-train-dev+alternatives.en`,
+      ),
     }),
   };
 
@@ -27,8 +31,13 @@ export default class TranslateLdc2020PrepareCommand extends Command {
     fs.ensureFileSync(flags.outputFile);
     const concatted: string[] = [];
     for (const filePath of tqdm2(res.filePaths)) {
-      const readLine = String(fs.readFileSync(filePath));
-      concatted.push(readLine.trim().replaceAll(/<.*>.*?/gi, ""));
+      const content = String(fs.readFileSync(filePath));
+      concatted.push(
+        content
+          .trim()
+          .replaceAll(/<.*>.*?/gi, "")
+          .replaceAll(/\n{2}/gi, "\n"),
+      );
     }
     fs.writeFileSync(flags.outputFile, concatted.join(""));
 

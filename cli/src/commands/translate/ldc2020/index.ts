@@ -1,5 +1,6 @@
 import {Command, Flags} from "@oclif/core";
-import {fs, splitFileInto, tqdm2, validateFileList} from "../../../lib";
+import {commons} from "../../../commons";
+import {fs, path, splitFileInto, tqdm2, validateFileList} from "../../../lib";
 import TranslateToIdCommand from "../to-id";
 
 export default class TranslateLdc2020Command extends Command {
@@ -8,11 +9,17 @@ export default class TranslateLdc2020Command extends Command {
   static override flags = {
     inputFile: Flags.string({
       description: `Input file.`,
-      default: `outputs/translate/ldc2020-train-dev+alternatives.en`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `translate/ldc2020-train-dev+alternatives.en`,
+      ),
     }),
     outputFile: Flags.string({
       description: `Output file.`,
-      default: `outputs/translate/ldc2020-train-dev+alternatives.id`,
+      default: path.join(
+        commons.OUTPUTS_DIRECTORY,
+        `translate/ldc2020-train-dev+alternatives.id`,
+      ),
     }),
     batch: Flags.integer({
       description: `Split texts to batches in case of failure.`,
@@ -20,7 +27,7 @@ export default class TranslateLdc2020Command extends Command {
     }),
     tempFolder: Flags.string({
       description: `Temporary directory for splitted batches.`,
-      default: `outputs/tmp`,
+      default: commons.TMP_DIRECTORY,
     }),
   };
 
@@ -66,7 +73,7 @@ export default class TranslateLdc2020Command extends Command {
       const readBuf = fs.readFileSync(outFile);
       concatted.push(readBuf);
     }
-    fs.writeFileSync(flags.outputFile, concatted.join(""));
+    fs.writeFileSync(flags.outputFile, concatted.join("\n"));
 
     this.log(`DONE.`);
   }

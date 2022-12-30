@@ -1,4 +1,5 @@
 import {Command, Flags} from "@oclif/core";
+import {commons} from "../../../commons.js";
 import {AMRDataset, DataCategory} from "../../../constants.js";
 import {
   cartesianProduct,
@@ -16,7 +17,7 @@ export default class AmrProcessLdcCommand extends Command {
   static override flags = {
     outDir: Flags.string({
       description: `Output directory.`,
-      default: `outputs/amr-process`,
+      default: path.join(commons.OUTPUTS_DIRECTORY, `amr-process`),
     }),
   };
 

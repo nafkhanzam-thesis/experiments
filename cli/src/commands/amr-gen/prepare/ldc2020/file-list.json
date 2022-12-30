@@ -1,5 +1,5 @@
 [
-  "outputs/amr-process/LDC2020/dev.jsonl",
-  "outputs/amr-process/LDC2020/test.jsonl",
-  "outputs/amr-process/LDC2020/training.jsonl"
+  "data/outputs/amr-process/LDC2020/dev.jsonl",
+  "data/outputs/amr-process/LDC2020/test.jsonl",
+  "data/outputs/amr-process/LDC2020/training.jsonl"
 ]

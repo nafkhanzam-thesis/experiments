@@ -1,7 +1,7 @@
 [
-  "data/IWSLT17.train.en-id/IWSLT17.train.en-id.en",
-  "data/PANL-BPPT-ECO-EN-ID-150Kw/PANL-BPPT-ECO-EN-150Kw.txt",
-  "data/PANL-BPPT-INT-EN-ID-150Kw/PANL-BPPT-INT-EN-150Kw.txt",
-  "data/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-EN-100Kw.txt",
-  "data/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-EN-100Kw.txt"
+  "data/original/IWSLT17.train.en-id/IWSLT17.train.en-id.en",
+  "data/original/PANL-BPPT-ECO-EN-ID-150Kw/PANL-BPPT-ECO-EN-150Kw.txt",
+  "data/original/PANL-BPPT-INT-EN-ID-150Kw/PANL-BPPT-INT-EN-150Kw.txt",
+  "data/original/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-EN-100Kw.txt",
+  "data/original/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-EN-100Kw.txt"
 ]
