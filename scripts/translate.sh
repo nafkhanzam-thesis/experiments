@@ -1,20 +1,21 @@
 #! /bin/bash
 
-cwd=$1
-a=$2
-b=$3
+CWD=$1
+MODEL=$2
+a=$3
+b=$4
 
 echo "Translating $a..to..$b";
 
 for (( i=$a; $(( $a > $b ? i>=$b : i<=$b )); i=$(( $a > $b ? $i - 1 : $i + 1 )) ))
 do
-  IN="$cwd/$i"
-  OUT="$cwd/$i.out"
+  IN="$CWD/$i"
+  OUT="$CWD/$i.out"
   if [ -e "$IN" ]; then
     if [ ! -e $OUT ]; then
       echo "Translating $i...";
       python scripts/translate.py \
-        -m en-id \
+        -m $MODEL \
         -i $IN \
         -o $OUT;
     fi

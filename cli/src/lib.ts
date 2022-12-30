@@ -158,7 +158,7 @@ export async function splitFileInto(a: {
   let currBatch = 0;
   for (let i = 0; i < lines.length; ++i) {
     const line = lines[i];
-    const lastIndex = Math.ceil(lines.length / a.batch) * (currBatch + 1);
+    const lastIndex = Math.floor((lines.length / a.batch) * (currBatch + 1));
     if (i > lastIndex) {
       ++currBatch;
       if (stream) {

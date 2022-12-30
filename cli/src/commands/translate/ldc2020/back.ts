@@ -1,24 +1,24 @@
 import {Command, Flags} from "@oclif/core";
+import TranslateCommand from "..";
 import {commons} from "../../../commons";
 import {fs, path, splitFileInto, tqdm2, validateFileList} from "../../../lib";
-import TranslateCommand from "..";
 
-export default class TranslateLdc2020Command extends Command {
-  static override description = `Translate LDC2020 train and dev + alternatives into Indonesian texts.`;
+export default class TranslateLdc2020BackCommand extends Command {
+  static override description = `Translate LDC2020 train and dev + alternatives back into English texts.`;
 
   static override flags = {
     inputFile: Flags.string({
       description: `Input file.`,
       default: path.join(
         commons.OUTPUTS_DIRECTORY,
-        `translate/ldc2020-train-dev+alternatives.en`,
+        `translate/ldc2020-train-dev+alternatives.id`,
       ),
     }),
     outputFile: Flags.string({
       description: `Output file.`,
       default: path.join(
         commons.OUTPUTS_DIRECTORY,
-        `translate/ldc2020-train-dev+alternatives.id`,
+        `translate/ldc2020-train-dev+alternatives.en-back`,
       ),
     }),
     batch: Flags.integer({
@@ -32,7 +32,7 @@ export default class TranslateLdc2020Command extends Command {
   };
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(TranslateLdc2020Command);
+    const {flags} = await this.parse(TranslateLdc2020BackCommand);
 
     this.log(`Validating input files...`);
     const res = await validateFileList([flags.inputFile]);
@@ -61,14 +61,11 @@ export default class TranslateLdc2020Command extends Command {
         continue;
       }
       await TranslateCommand.runProcess({
-        model: `en-id`,
+        model: `id-en`,
         inputFile: splitFile,
         outputFile: outFile,
       });
     }
-
-    console.log(outFiles[outFiles.length - 2]);
-    console.log(outFiles[outFiles.length - 1]);
 
     this.log(`Merging results...`);
     fs.ensureFileSync(flags.outputFile);
