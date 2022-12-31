@@ -59,7 +59,7 @@ export const dataColumns: readonly [keyof Data, ...(keyof Data)[]] = [
 ] as const;
 
 export class Client {
-  static MAX_CHUNK = 1 << 15;
+  static MAX_CHUNK = 1 << 7;
   private static _client?: cassandra.Client;
   static get instance(): cassandra.Client {
     if (!this._client) {
@@ -104,7 +104,7 @@ function createUpdateQuery(
 
 export async function update(dataKey: DataKey, data: Data): Promise<void> {
   const {updateTemplate, values} = createUpdateQuery(dataKey, data);
-  await Client.instance.execute(updateTemplate, values);
+  await Client.instance.execute(updateTemplate, values, {prepare: true});
 }
 
 export async function batchUpdate(

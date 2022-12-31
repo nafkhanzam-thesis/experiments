@@ -3,12 +3,18 @@
     "dataSource": "IWSLT17",
     "split": "train",
     "key": "en",
-    "filePath": ["data/original/IWSLT17.train.en-id/IWSLT17.train.en-id.en"]
+    "filePathList": ["data/original/IWSLT17.train.en-id/IWSLT17.train.en-id.en"]
   },
   {
     "dataSource": "IWSLT17",
     "split": "train",
     "key": "id",
-    "filePath": ["data/original/IWSLT17.train.en-id/IWSLT17.train.en-id.id"]
+    "filePathList": ["data/original/IWSLT17.train.en-id/IWSLT17.train.en-id.id"]
+  },
+  {
+    "dataSource": "IWSLT17",
+    "split": "train",
+    "key": "amr_dfs",
+    "filePathList": [["data/outputs/amr-process/corpora.amr", 0, 107329]]
   }
 ]

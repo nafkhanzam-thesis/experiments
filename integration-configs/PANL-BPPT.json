@@ -20,5 +20,11 @@
       "data/original/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-ID-100Kw.txt",
       "data/original/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-ID-100Kw.txt"
     ]
+  },
+  {
+    "dataSource": "PANL-BPPT",
+    "split": "train",
+    "key": "amr_dfs",
+    "filePathList": [["data/outputs/amr-process/corpora.amr", 107329]]
   }
 ]

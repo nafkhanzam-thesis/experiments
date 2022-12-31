@@ -84,6 +84,26 @@ export function* tqdm2<T>(
     yield v;
   }
 
+  progress.run({value, total});
+  progress.stop();
+}
+
+export function* tqdm2Chunk<T>(
+  array: Iterable<T[]>,
+  total: number,
+): Generator<T[]> {
+  const progress = new cliProgressBar.ProgressBar({});
+
+  let value = 0;
+  progress.run({value, total});
+
+  for (const v of array) {
+    progress.run({value, total});
+    yield v;
+    value += v.length;
+  }
+
+  progress.run({value, total});
   progress.stop();
 }
 

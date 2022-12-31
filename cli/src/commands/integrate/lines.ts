@@ -1,24 +1,39 @@
 import {Command, Flags} from "@oclif/core";
 import {
   batchUpdate,
+  Client,
   Data,
-  DataKey,
   dataColumns,
+  DataKey,
   dataSources,
   splits,
-  Client,
 } from "../../db.js";
-import {readCleanedLines, readFile, splitChunk, tqdm2, zod} from "../../lib.js";
+import {
+  readCleanedLines,
+  readFile,
+  splitChunk,
+  tqdm2,
+  tqdm2Chunk,
+  zod,
+} from "../../lib.js";
 
 const confListValidator = zod
   .object({
     dataSource: zod.enum(dataSources),
     split: zod.enum(splits),
     key: zod.enum(dataColumns),
-    filePathList: zod.string().array(),
+    filePathList: zod
+      .union([
+        zod.string(),
+        zod.tuple([zod.string(), zod.number()]),
+        zod.tuple([zod.string(), zod.number(), zod.number()]),
+      ])
+      .array(),
   })
   .array()
   .min(1);
+
+type ConfList = zod.infer<typeof confListValidator>;
 
 export default class IntegrateLinesCommand extends Command {
   static override description = `Integrate every line in files to DB.`;
@@ -56,10 +71,29 @@ export default class IntegrateLinesCommand extends Command {
 
   static async runProcess(
     dataKey: Omit<DataKey, "idx">,
-    o: {inputFileList: string[]; key: keyof Data},
+    o: {inputFileList: ConfList[number]["filePathList"]; key: keyof Data},
   ): Promise<void> {
-    const lines = o.inputFileList
-      .map((inputFile) => readCleanedLines(inputFile))
+    const lines: string[] = o.inputFileList
+      .map((entry) => {
+        let filePath: string;
+        if (typeof entry === "string") {
+          filePath = entry;
+        } else {
+          filePath = entry[0];
+        }
+
+        let lines = readCleanedLines(filePath);
+
+        if (Array.isArray(entry)) {
+          if (entry.length == 3) {
+            lines = lines.slice(entry[1], entry[2]);
+          } else {
+            lines = lines.slice(entry[1]);
+          }
+        }
+
+        return lines;
+      })
       .flat();
     const batchValues = lines.map((v, i) => ({
       dataKey: {
@@ -70,7 +104,12 @@ export default class IntegrateLinesCommand extends Command {
         [o.key]: v,
       },
     }));
-    for (const batchValue of splitChunk(batchValues, Client.MAX_CHUNK)) {
+
+    const chunks = tqdm2Chunk(
+      splitChunk(batchValues, Client.MAX_CHUNK),
+      lines.length,
+    );
+    for (const batchValue of chunks) {
       await batchUpdate(batchValue);
     }
   }
