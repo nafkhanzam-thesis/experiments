@@ -11,6 +11,7 @@ import {
 import {
   readCleanedLines,
   readFile,
+  sizeof,
   splitChunk,
   tqdm2,
   tqdm2Chunk,
@@ -86,7 +87,7 @@ export default class IntegrateLinesCommand extends Command {
 
         if (Array.isArray(entry)) {
           if (entry.length == 3) {
-            lines = lines.slice(entry[1], entry[2]);
+            lines = lines.slice(entry[1], entry[1] + entry[2]);
           } else {
             lines = lines.slice(entry[1]);
           }
@@ -105,8 +106,16 @@ export default class IntegrateLinesCommand extends Command {
       },
     }));
 
+    const totalSize = batchValues.reduce(
+      (prev, curr) => prev + sizeof(curr),
+      0,
+    );
+
     const chunks = tqdm2Chunk(
-      splitChunk(batchValues, Client.MAX_CHUNK),
+      splitChunk(
+        batchValues,
+        Math.floor((Client.MAX_CHUNK * batchValues.length) / totalSize),
+      ),
       lines.length,
     );
     for (const batchValue of chunks) {

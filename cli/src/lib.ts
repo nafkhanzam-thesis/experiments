@@ -22,6 +22,7 @@ import path from "node:path";
 export {path};
 
 export * as streamPromises from "stream/promises";
+export {default as sizeof} from "object-sizeof";
 
 import url from "node:url";
 

@@ -1,0 +1,64 @@
+[
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "amr_dfs",
+    "filePathList": ["data/outputs/amr-process/LDC2020/training.amr"]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "en",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.en", 1722, 55635]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "id",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.id", 1722, 55635]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "en_back",
+    "filePathList": [
+      [
+        "data/outputs/translate/ldc2020-train-dev+alternatives.en-back",
+        1722,
+        55635
+      ]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "en_alt",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.en", 59079, 55635]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "id_alt",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.id", 59079, 55635]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "train",
+    "key": "en_alt_back",
+    "filePathList": [
+      [
+        "data/outputs/translate/ldc2020-train-dev+alternatives.en-back",
+        59079,
+        55635
+      ]
+    ]
+  }
+]

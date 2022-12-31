@@ -59,7 +59,7 @@ export const dataColumns: readonly [keyof Data, ...(keyof Data)[]] = [
 ] as const;
 
 export class Client {
-  static MAX_CHUNK = 1 << 7;
+  static MAX_CHUNK = (1 << 16) - 2;
   private static _client?: cassandra.Client;
   static get instance(): cassandra.Client {
     if (!this._client) {

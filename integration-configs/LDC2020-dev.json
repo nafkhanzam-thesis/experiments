@@ -1,0 +1,60 @@
+[
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "amr_dfs",
+    "filePathList": ["data/outputs/amr-process/LDC2020/dev.amr"]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "en",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.en", 0, 1722]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "id",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.id", 0, 1722]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "en_back",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.en-back", 0, 1722]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "en_alt",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.en", 57357, 1722]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "id_alt",
+    "filePathList": [
+      ["data/outputs/translate/ldc2020-train-dev+alternatives.id", 57357, 1722]
+    ]
+  },
+  {
+    "dataSource": "LDC2020",
+    "split": "dev",
+    "key": "en_alt_back",
+    "filePathList": [
+      [
+        "data/outputs/translate/ldc2020-train-dev+alternatives.en-back",
+        57357,
+        1722
+      ]
+    ]
+  }
+]
