@@ -13,7 +13,6 @@ import {
   readFile,
   sizeof,
   splitChunk,
-  tqdm2,
   tqdm2Chunk,
   zod,
 } from "../../lib.js";
@@ -53,8 +52,8 @@ export default class IntegrateLinesCommand extends Command {
       JSON.parse(readFile(flags.configFile)),
     );
 
-    this.log(`Processing the job...`);
-    for (const conf of tqdm2(confList, {suffix: (v) => v.dataSource})) {
+    this.log(`Processing the ${confList.length} job(s)...`);
+    for (const conf of confList) {
       await IntegrateLinesCommand.runProcess(
         {
           data_source: conf.dataSource,
@@ -118,6 +117,7 @@ export default class IntegrateLinesCommand extends Command {
       ),
       lines.length,
     );
+    console.log(`${dataKey.data_source}-${dataKey.split}-${o.key}`);
     for (const batchValue of chunks) {
       await batchUpdate(batchValue);
     }

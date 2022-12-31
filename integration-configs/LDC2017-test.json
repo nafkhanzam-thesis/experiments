@@ -1,0 +1,14 @@
+[
+  {
+    "dataSource": "LDC2017",
+    "split": "test",
+    "key": "amr_dfs",
+    "filePathList": ["data/outputs/amr-process/LDC2017/test.amr"]
+  },
+  {
+    "dataSource": "LDC2017",
+    "split": "test",
+    "key": "en",
+    "filePathList": ["data/outputs/amr-process/LDC2017/test.txt"]
+  }
+]
