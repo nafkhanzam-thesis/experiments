@@ -87,6 +87,7 @@ CREATE TABLE data (
   id text,
   en__labse list<float>,
   id__labse list<float>,
+  id__en__nn_rank int,
   en_back text,
   en__en_back__bleu float,
 
@@ -94,8 +95,10 @@ CREATE TABLE data (
   id_alt text,
   en_alt__labse list<float>,
   id_alt__labse list<float>,
+  id_alt__en_alt__nn_rank int,
   en_alt_back text,
   en_alt__en_alt_back__bleu float,
+
   en__en_alt__bleu float,
 
   PRIMARY KEY ((data_source, split), idx)

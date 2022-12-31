@@ -16,12 +16,14 @@ export type Data = {
   id?: string;
   en__labse?: number[];
   id__labse?: number[];
+  id__en__nn_rank?: number;
   en_back?: string;
   en__en_back__bleu?: number;
   en_alt?: string;
   id_alt?: string;
   en_alt__labse?: number[];
   id_alt__labse?: number[];
+  id_alt__en_alt__nn_rank?: number;
   en_alt_back?: string;
   en_alt__en_alt_back__bleu?: number;
   en__en_alt__bleu?: number;
@@ -37,12 +39,14 @@ const keys: readonly (keyof Data)[] = [
   "id",
   "en__labse",
   "id__labse",
+  "id__en__nn_rank",
   "en_back",
   "en__en_back__bleu",
   "en_alt",
   "id_alt",
   "en_alt__labse",
   "id_alt__labse",
+  "id_alt__en_alt__nn_rank",
   "en_alt_back",
   "en_alt__en_alt_back__bleu",
   "en__en_alt__bleu",
