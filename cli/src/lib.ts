@@ -73,7 +73,7 @@ export function* tqdm2<T>(
   progress.run({value, total});
 
   for (const v of array) {
-    const o: IRunOptions = {value: ++value, total};
+    const o: IRunOptions = {value: value++, total};
     if (opts?.prefix) {
       o.prefix = opts.prefix(v);
     }
@@ -120,6 +120,17 @@ export function cartesianProduct<T extends unknown[]>(
 
 export function getCwd(): string {
   return path.dirname(url.fileURLToPath(import.meta.url));
+}
+
+export function readFile(filePath: string): string {
+  return String(fs.readFileSync(filePath));
+}
+
+export function readCleanedLines(filePath: string): string[] {
+  return String(fs.readFileSync(filePath))
+    .split("\n")
+    .map((v) => v.trim())
+    .filter((v) => v);
 }
 
 export async function validateFileList(
@@ -191,4 +202,11 @@ export async function splitFileInto(a: {
   }
 
   return tmpFileList;
+}
+
+export function* splitChunk<T>(array: T[], chunkSize: number): Generator<T[]> {
+  let i = 0;
+  while (i < array.length) {
+    yield array.slice(i, (i += chunkSize));
+  }
 }

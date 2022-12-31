@@ -66,6 +66,9 @@
     "hooks": {
       "init": [
         "./src/env"
+      ],
+      "postrun": [
+        "./src/db"
       ]
     },
     "plugins": [

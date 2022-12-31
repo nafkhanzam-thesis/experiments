@@ -1,0 +1,24 @@
+[
+  {
+    "dataSource": "PANL-BPPT",
+    "split": "train",
+    "key": "en",
+    "filePathList": [
+      "data/original/PANL-BPPT-ECO-EN-ID-150Kw/PANL-BPPT-ECO-EN-150Kw.txt",
+      "data/original/PANL-BPPT-INT-EN-ID-150Kw/PANL-BPPT-INT-EN-150Kw.txt",
+      "data/original/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-EN-100Kw.txt",
+      "data/original/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-EN-100Kw.txt"
+    ]
+  },
+  {
+    "dataSource": "PANL-BPPT",
+    "split": "train",
+    "key": "id",
+    "filePathList": [
+      "data/original/PANL-BPPT-ECO-EN-ID-150Kw/PANL-BPPT-ECO-ID-150Kw.txt",
+      "data/original/PANL-BPPT-INT-EN-ID-150Kw/PANL-BPPT-INT-ID-150Kw.txt",
+      "data/original/PANL-BPPT-SCI-EN-ID-100Kw/PANL-BPPT-SCI-ID-100Kw.txt",
+      "data/original/PANL-BPPT-SPO-EN-ID-100Kw/PANL-BPPT-SPO-ID-100Kw.txt"
+    ]
+  }
+]

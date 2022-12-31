@@ -1,0 +1,14 @@
+[
+  {
+    "dataSource": "IWSLT17",
+    "split": "train",
+    "key": "en",
+    "filePath": "test.in"
+  },
+  {
+    "dataSource": "IWSLT17",
+    "split": "train",
+    "key": "id",
+    "filePath": "test.out"
+  }
+]
