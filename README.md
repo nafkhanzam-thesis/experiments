@@ -17,6 +17,10 @@
 - 4: Translate ENs to IDs.
 - 5: Translate IDs to ENs back.
 
+### Inserting to database
+
+All the translation results are then inserted to ScyllaDB.
+
 ### Evaluation steps
 
 1. Encode each `en` and `id` sentences (except `back`) using LaBSE encoder.
@@ -74,7 +78,7 @@ Table:
 CREATE TABLE data (
   data_source text,
   split text,
-  idx INT,
+  idx int,
 
   amr text,
   amr_dfs text,
