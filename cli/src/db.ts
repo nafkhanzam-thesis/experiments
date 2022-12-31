@@ -1,7 +1,8 @@
 import cassandra from "cassandra-driver";
+import {env} from "./env.js";
 
 const client = new cassandra.Client({
-  contactPoints: ["localhost"],
+  contactPoints: [env.SCYLLA_DB_HOST],
   localDataCenter: "datacenter1",
   keyspace: "thesis",
 });

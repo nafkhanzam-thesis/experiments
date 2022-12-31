@@ -25,6 +25,7 @@
     "cassandra-driver": "4.6.4",
     "cli-progress": "3.11.2",
     "directory-tree": "3.5.1",
+    "dotenv": "16.0.3",
     "execa": "6.1.0",
     "fs-extra": "11.1.0",
     "zod": "3.20.2"
@@ -62,6 +63,11 @@
     "bin": "nafkhanzam-thesis-cli",
     "dirname": "nafkhanzam-thesis-cli",
     "commands": "./dist/commands",
+    "hooks": {
+      "init": [
+        "./src/env"
+      ]
+    },
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
