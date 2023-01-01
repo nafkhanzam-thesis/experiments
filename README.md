@@ -85,21 +85,21 @@ CREATE TABLE data (
 
   en text,
   id text,
-  en__labse list<float>,
-  id__labse list<float>,
+  en__labse list<double>,
+  id__labse list<double>,
   id__en__nn_rank int,
   en_back text,
-  en__en_back__bleu float,
+  en__en_back__bleu double,
 
   en_alt text,
   id_alt text,
-  en_alt__labse list<float>,
-  id_alt__labse list<float>,
+  en_alt__labse list<double>,
+  id_alt__labse list<double>,
   id_alt__en_alt__nn_rank int,
   en_alt_back text,
-  en_alt__en_alt_back__bleu float,
+  en_alt__en_alt_back__bleu double,
 
-  en__en_alt__bleu float,
+  en__en_alt__bleu double,
 
   PRIMARY KEY (data_source, split, idx)
 );

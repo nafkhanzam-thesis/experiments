@@ -1,6 +1,5 @@
 import db
 import argparse
-import io
 from eval.bleu import bleu_compute
 
 
@@ -14,7 +13,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     def log(idx, *msg):
-        print(f"{data_source}-{split}-{idx} |", *msg)
+        print(f"en__en_back__bleu | {data_source}-{split}-{idx} |", *msg)
 
     statement = db.session.prepare(
         f"SELECT data_source, split, idx, en, en_back, en__en_back__bleu FROM {db.SCYLLA_DB_TABLE} WHERE data_source=? AND split=? AND idx>=? AND idx<?")
