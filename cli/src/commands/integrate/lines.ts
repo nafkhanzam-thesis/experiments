@@ -82,7 +82,7 @@ export default class IntegrateLinesCommand extends Command {
           filePath = entry[0];
         }
 
-        let lines = readCleanedLines(filePath);
+        let lines = readCleanedLines(filePath, false);
 
         if (Array.isArray(entry)) {
           if (entry.length == 3) {
@@ -117,7 +117,9 @@ export default class IntegrateLinesCommand extends Command {
       ),
       lines.length,
     );
-    console.log(`${dataKey.data_source}-${dataKey.split}-${o.key}`);
+    console.log(
+      `${dataKey.data_source}-${dataKey.split}-${o.key}-(${lines.length} lines)`,
+    );
     for (const batchValue of chunks) {
       await batchUpdate(batchValue);
     }
