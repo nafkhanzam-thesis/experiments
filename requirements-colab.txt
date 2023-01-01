@@ -21,3 +21,5 @@ sentencepiece
 sacremoses
 sentence-transformers
 evaluate
+scylla-driver
+python-dotenv

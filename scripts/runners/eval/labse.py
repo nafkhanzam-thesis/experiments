@@ -1,11 +1,11 @@
 import argparse
 from sentence_transformers import SentenceTransformer, util
 
+model = SentenceTransformer('sentence-transformers/LaBSE')
+
 
 def encode_labse(sentences):
-    model = SentenceTransformer('sentence-transformers/LaBSE')
-    embeddings = model.encode(sentences)
-    return embeddings
+    return model.encode(sentences)
 
 
 if __name__ == "__main__":

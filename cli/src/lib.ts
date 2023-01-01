@@ -149,15 +149,32 @@ export function readFile(filePath: string): string {
   return String(fs.readFileSync(filePath));
 }
 
-export function readCleanedLines(filePath: string): string[] {
+export function readCleanedLines(
+  filePath: string,
+  ignoreEmpty = true,
+  ignoreEmptyLast = true,
+): string[] {
   return String(fs.readFileSync(filePath))
     .split("\n")
     .map((v) => v.trim())
-    .filter((v) => v);
+    .filter(
+      (v, i, a) =>
+        (!ignoreEmpty || v) && (!ignoreEmptyLast || i < a.length - 1 || v),
+    );
 }
 
-export function writeCleanLines(filePath: string, data: string[]): void {
-  fs.writeFileSync(filePath, data.map((v) => v.trim()).join("\n"));
+export function writeCleanLines(
+  filePath: string,
+  data: string[],
+  filterEmpty = true,
+): void {
+  fs.writeFileSync(
+    filePath,
+    data
+      .map((v) => v.trim())
+      .filter((v) => !filterEmpty || v)
+      .join("\n"),
+  );
 }
 
 export async function validateFileList(

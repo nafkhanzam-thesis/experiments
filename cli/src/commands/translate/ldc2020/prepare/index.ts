@@ -1,6 +1,12 @@
 import {Command, Flags} from "@oclif/core";
 import {commons} from "../../../../commons.js";
-import {fs, path, tqdm2, validateFileList} from "../../../../lib.js";
+import {
+  path,
+  readCleanedLines,
+  tqdm2,
+  validateFileList,
+  writeCleanLines,
+} from "../../../../lib.js";
 import rawFileList from "./file-list.json" assert {type: "json"};
 
 export default class TranslateLdc2020PrepareCommand extends Command {
@@ -28,18 +34,12 @@ export default class TranslateLdc2020PrepareCommand extends Command {
     }
 
     this.log(`Merging files...`);
-    fs.ensureFileSync(flags.outputFile);
     const concatted: string[] = [];
     for (const filePath of tqdm2(res.filePaths)) {
-      const content = String(fs.readFileSync(filePath));
-      concatted.push(
-        content
-          .trim()
-          .replaceAll(/<.*>.*?/gi, "")
-          .replaceAll(/\n{2}/gi, "\n"),
-      );
+      const contentList = readCleanedLines(filePath, false);
+      concatted.push(...contentList);
     }
-    fs.writeFileSync(flags.outputFile, concatted.join(""));
+    writeCleanLines(flags.outputFile, concatted, false);
 
     this.log(`DONE.`);
   }

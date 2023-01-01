@@ -101,6 +101,6 @@ CREATE TABLE data (
 
   en__en_alt__bleu float,
 
-  PRIMARY KEY ((data_source, split), idx)
+  PRIMARY KEY (data_source, split, idx)
 );
 ```
