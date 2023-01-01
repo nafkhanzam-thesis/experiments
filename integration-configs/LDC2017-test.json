@@ -10,5 +10,11 @@
     "split": "test",
     "key": "en",
     "filePathList": ["data/outputs/amr-process/LDC2017/test.txt"]
+  },
+  {
+    "dataSource": "LDC2017",
+    "split": "test",
+    "key": "id",
+    "filePathList": ["data/outputs/translate/ldc2017-test.id"]
   }
 ]

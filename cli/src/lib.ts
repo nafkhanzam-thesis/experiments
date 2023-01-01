@@ -16,6 +16,8 @@ import * as cliProgressBar from "@open-tech-world/cli-progress-bar";
 import type IRunOptions from "@open-tech-world/cli-progress-bar/lib/IRunOptions";
 export {cliProgressBar};
 
+export {default as dfd} from "danfojs-node";
+
 export {execa, execaSync, execaCommand, execaCommandSync} from "execa";
 
 import path from "node:path";
@@ -152,6 +154,10 @@ export function readCleanedLines(filePath: string): string[] {
     .split("\n")
     .map((v) => v.trim())
     .filter((v) => v);
+}
+
+export function writeCleanLines(filePath: string, data: string[]): void {
+  fs.writeFileSync(filePath, data.map((v) => v.trim()).join("\n"));
 }
 
 export async function validateFileList(
