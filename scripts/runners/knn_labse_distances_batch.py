@@ -1,7 +1,4 @@
-import db
-import argparse
 import pickle
-import numpy as np
 from tqdm import tqdm
 from eval.cosine_distance_batch import cosine_distance_batch
 
