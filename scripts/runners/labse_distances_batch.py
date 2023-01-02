@@ -21,9 +21,6 @@ if __name__ == "__main__":
             if i == idx:
                 break
         ranks.append(rank)
-        break
 
     with open("data/outputs/ranks.pkl", "wb") as f:
         pickle.dump(ranks, f)
-
-    print(distances[:5])
