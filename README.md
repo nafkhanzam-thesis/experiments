@@ -137,18 +137,20 @@ CREATE TABLE data (
 );
 
 CREATE TABLE dataset (
+  data_source text,
   split text,
   idx int,
 
-  data_source text,
   source_type text, -- {original,alt}
   amr text,
   amr_dfs text,
 
   en text,
   id text,
+  labse_distance double,
+  back_bleu double,
 
-  PRIMARY KEY (split, idx)
+  PRIMARY KEY (data_source, split, idx)
 );
 ```
 
@@ -187,17 +189,19 @@ CREATE UNLOGGED TABLE data (
 );
 
 CREATE UNLOGGED TABLE dataset (
+  data_source text,
   split text,
   idx int,
 
-  data_source text,
   source_type text, -- {original,alt}
   amr text,
   amr_dfs text,
 
   en text,
   id text,
+  labse_distance double precision,
+  back_bleu double precision,
 
-  PRIMARY KEY (split, idx)
+  PRIMARY KEY (data_source, split, idx)
 );
 ```

@@ -22,6 +22,7 @@ export type Data = {
   id?: string | undefined;
   en__labse?: number[] | undefined;
   id__labse?: number[] | undefined;
+  labse_distance?: number | undefined;
   id__en__nn_rank?: number | undefined;
   en_back?: string | undefined;
   en__en_back__bleu?: number | undefined;
@@ -29,6 +30,7 @@ export type Data = {
   id_alt?: string | undefined;
   en_alt__labse?: number[] | undefined;
   id_alt__labse?: number[] | undefined;
+  alt__labse_distance?: number | undefined;
   id_alt__en_alt__nn_rank?: number | undefined;
   en_alt_back?: string | undefined;
   en_alt__en_alt_back__bleu?: number | undefined;
@@ -44,6 +46,7 @@ export const dataColumns: readonly [keyof Data, ...(keyof Data)[]] = [
   "id",
   "en__labse",
   "id__labse",
+  "labse_distance",
   "id__en__nn_rank",
   "en_back",
   "en__en_back__bleu",
@@ -51,6 +54,7 @@ export const dataColumns: readonly [keyof Data, ...(keyof Data)[]] = [
   "id_alt",
   "en_alt__labse",
   "id_alt__labse",
+  "alt__labse_distance",
   "id_alt__en_alt__nn_rank",
   "en_alt_back",
   "en_alt__en_alt_back__bleu",
