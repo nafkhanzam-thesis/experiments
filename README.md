@@ -27,10 +27,34 @@ All the translation results are then inserted to ScyllaDB.
 2. Compute BLEU scores for each `en` and `en_back` pair.
 3. Compute BLEU scores for `en` and `en_alt`.
 
+## Filter dataset
+
+### Training data filtration criterias
+
+All:
+
+- `data_source` = 'LDC2020'
+
+Original sentences:
+
+- `id__en__nn_rank` = 1
+
+Alternative sentences:
+
+- 0.1 < `en__en_alt__bleu` < 0.9
+- `id_alt__en__nn_rank` = 1
+
+### Evaluate final dataset
+
+- BLEU score: Average of `en__en_back__bleu` and `en_alt__en_alt_back__bleu`.
+- Cosine similarity: 1 - Average of `labse_distance` and `alt__labse_distance`.
+
 ## Schema
 
 Dataset will be saved in a columnar database like Cassandra or Scylla.
 I will be using ScyllaDB.
+
+(I think this was a mistake, relational databases may suit better)
 
 Key columns:
 
@@ -49,6 +73,8 @@ Original sentence pairs:
 - `id`: Indonesian translation of `en`.
 - `en__labse`: LaBSE-encoded `en`.
 - `id__labse`: LaBSE-encoded `id`.
+- `labse_distance`: The cosine distance of `en__labse` and `id__labse`.
+- `id__en__nn_rank`: k-NN rank of the corresponding `en__labse` of `id__labse` among others.
 - `en_back`: English translation back of `id`.
 - `en__en_back__bleu`: BLEU score between `en` and `en_back`.
 
@@ -58,6 +84,8 @@ AMR-to-text sentence pairs:
 - `id_alt`: Indonesian translation of `en_alt`.
 - `en_alt__labse`: LaBSE-encoded `en_alt`.
 - `id_alt__labse`: LaBSE-encoded `id_alt`.
+- `alt__labse_distance`: The cosine distance of `en_alt__labse` and `id_alt__labse`.
+- `id_alt__en__nn_rank`: k-NN rank of the corresponding `en_alt__labse` of `id_alt__labse` among others.
 - `en_alt_back`: English translation back of `id_alt`.
 - `en_alt__en_alt_back__bleu`: BLEU score between `en_alt` and `en_alt_back`.
 - `en__en_alt__bleu`: BLEU score between `en` and `en_alt`.
