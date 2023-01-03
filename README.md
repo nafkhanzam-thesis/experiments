@@ -29,7 +29,7 @@ All the translation results are then inserted to ScyllaDB.
 
 ## Schema
 
-Dataset will be saved in a columnar database.
+Dataset will be saved in a columnar database like Cassandra or Scylla.
 I will be using ScyllaDB.
 
 Key columns:
