@@ -1,14 +1,14 @@
 import {Command, Flags} from "@oclif/core";
+import {Client} from "../../db/base.js";
 import {
-  batchUpdate,
-  BatchValue,
-  Client,
   Data,
+  DataBatchValue,
   dataColumns,
+  dataDb,
   DataKey,
   dataSources,
   splits,
-} from "../../db.js";
+} from "../../db/data.js";
 import {
   readCleanedLines,
   readFile,
@@ -95,7 +95,7 @@ export default class IntegrateLinesCommand extends Command {
         return lines;
       })
       .flat();
-    const batchValues: BatchValue[] = lines.map((v, i) => ({
+    const batchValues: DataBatchValue[] = lines.map((v, i) => ({
       dataKey: {
         ...dataKey,
         idx: i,
@@ -114,7 +114,7 @@ export default class IntegrateLinesCommand extends Command {
       `${dataKey.data_source}-${dataKey.split}-${o.key}-(${lines.length} lines)`,
     );
     for (const batchValue of chunks) {
-      await batchUpdate(batchValue);
+      await dataDb.batchUpdate(batchValue);
     }
   }
 }

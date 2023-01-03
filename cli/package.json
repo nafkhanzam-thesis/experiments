@@ -70,7 +70,7 @@
         "./src/env"
       ],
       "postrun": [
-        "./src/db"
+        "./src/db/hook"
       ]
     },
     "plugins": [

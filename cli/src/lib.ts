@@ -82,6 +82,32 @@ export function* tqdm2<T>(
   progress.stop();
 }
 
+export async function* tqdm2Async<T>(
+  array: AsyncIterable<T>,
+  total: number,
+  opts?: {prefix?: (v: T) => string; suffix?: (v: T) => string},
+): AsyncGenerator<T> {
+  const progress = new cliProgressBar.ProgressBar({});
+
+  let value = 0;
+  progress.run({value, total});
+
+  for await (const v of array) {
+    const o: IRunOptions = {value: value++, total};
+    if (opts?.prefix) {
+      o.prefix = opts.prefix(v);
+    }
+    if (opts?.suffix) {
+      o.suffix = opts.suffix(v);
+    }
+    progress.run(o);
+    yield v;
+  }
+
+  progress.run({value, total});
+  progress.stop();
+}
+
 export function* tqdm2Chunk<T>(
   array: Iterable<T[]>,
   total: number,

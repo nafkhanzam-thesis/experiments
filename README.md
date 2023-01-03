@@ -29,6 +29,8 @@ All the translation results are then inserted to ScyllaDB.
 
 ## Filter dataset
 
+The filtered data will be saved to `dataset` table.
+
 ### Training data filtration criterias
 
 All:
@@ -42,7 +44,7 @@ Original sentences:
 Alternative sentences:
 
 - 0.1 < `en__en_alt__bleu` < 0.9
-- `id_alt__en__nn_rank` = 1
+- `id_alt__en_alt__nn_rank` = 1
 
 ### Evaluate final dataset
 
@@ -60,7 +62,7 @@ Key columns:
 
 - `data_source` {LDC2017,LDC2020,PANL-BPPT,IWSLT17}
 - `split` {train,dev,test}
-- `index` {0..*}
+- `idx` {0..*}
 
 AMR columns:
 
@@ -132,5 +134,70 @@ CREATE TABLE data (
   en__en_alt__bleu double,
 
   PRIMARY KEY (data_source, split, idx)
+);
+
+CREATE TABLE dataset (
+  split text,
+  idx int,
+
+  data_source text,
+  source_type text, -- {original,alt}
+  amr text,
+  amr_dfs text,
+
+  en text,
+  id text,
+
+  PRIMARY KEY (split, idx)
+);
+```
+
+Alternative Table for PostgreSQL:
+
+```sql
+CREATE UNLOGGED TABLE data (
+  data_source text NOT NULL,
+  split text NOT NULL,
+  idx int NOT NULL,
+
+  amr text,
+  amr_dfs text,
+
+  en text,
+  id text,
+  en__labse jsonb,
+  id__labse jsonb,
+  labse_distance double precision,
+  id__en__nn_rank int,
+  en_back text,
+  en__en_back__bleu double precision,
+
+  en_alt text,
+  id_alt text,
+  en_alt__labse jsonb,
+  id_alt__labse jsonb,
+  alt__labse_distance double precision,
+  id_alt__en_alt__nn_rank int,
+  en_alt_back text,
+  en_alt__en_alt_back__bleu double precision,
+
+  en__en_alt__bleu double precision,
+
+  PRIMARY KEY (data_source, split, idx)
+);
+
+CREATE UNLOGGED TABLE dataset (
+  split text,
+  idx int,
+
+  data_source text,
+  source_type text, -- {original,alt}
+  amr text,
+  amr_dfs text,
+
+  en text,
+  id text,
+
+  PRIMARY KEY (split, idx)
 );
 ```
