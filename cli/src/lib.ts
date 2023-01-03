@@ -1,32 +1,23 @@
 import dirTree from "directory-tree";
-export {dirTree};
-
+export {default as dfd} from "danfojs-node";
+export {execa, execaCommand, execaCommandSync, execaSync} from "execa";
 export {default as globby} from "globby";
-
-import * as zod from "zod";
+export * as streamPromises from "stream/promises";
+export {dirTree};
 export {zod};
-
-import fs from "fs-extra";
 export {fs};
-
-import * as cliProgress from "cli-progress";
 export {cliProgress};
+export {cliProgressBar};
+export {path};
 
 import * as cliProgressBar from "@open-tech-world/cli-progress-bar";
 import type IRunOptions from "@open-tech-world/cli-progress-bar/lib/IRunOptions";
-export {cliProgressBar};
-
-export {default as dfd} from "danfojs-node";
-
-export {execa, execaSync, execaCommand, execaCommandSync} from "execa";
-
+import * as cliProgress from "cli-progress";
+import fs from "fs-extra";
 import path from "node:path";
-export {path};
-
-export * as streamPromises from "stream/promises";
-export {default as sizeof} from "object-sizeof";
-
 import url from "node:url";
+import sizeof from "object-sizeof";
+import * as zod from "zod";
 
 export function* tqdm<T>(array: T[]): Generator<T> {
   const progress = new cliProgress.SingleBar(
@@ -253,4 +244,16 @@ export function* splitChunk<T>(array: T[], chunkSize: number): Generator<T[]> {
   while (i < array.length) {
     yield array.slice(i, (i += chunkSize));
   }
+}
+
+export function splitChunkAuto<T>(
+  array: T[],
+  maxSizePerChunk: number,
+): Generator<T[]> {
+  const totalSize = array.reduce((prev, curr) => prev + sizeof(curr), 0);
+
+  return splitChunk(
+    array,
+    Math.floor((maxSizePerChunk * array.length) / totalSize),
+  );
 }

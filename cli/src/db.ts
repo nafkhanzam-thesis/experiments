@@ -58,6 +58,8 @@ export const dataColumns: readonly [keyof Data, ...(keyof Data)[]] = [
   "en__en_alt__bleu",
 ] as const;
 
+export type BatchValue = {dataKey: DataKey; data: Data};
+
 export class Client {
   static MAX_CHUNK = (1 << 16) - 2;
   private static _client?: cassandra.Client;
@@ -81,10 +83,7 @@ export class Client {
   }
 }
 
-function createUpdateQuery(
-  dataKey: DataKey,
-  data: Data,
-): {
+function createUpdateQuery({dataKey, data}: BatchValue): {
   updateTemplate: string;
   values: cassandra.ArrayOrObject;
 } {
@@ -103,15 +102,13 @@ function createUpdateQuery(
 }
 
 export async function update(dataKey: DataKey, data: Data): Promise<void> {
-  const {updateTemplate, values} = createUpdateQuery(dataKey, data);
+  const {updateTemplate, values} = createUpdateQuery({dataKey, data});
   await Client.instance.execute(updateTemplate, values, {prepare: true});
 }
 
-export async function batchUpdate(
-  dataList: {dataKey: DataKey; data: Data}[],
-): Promise<void> {
+export async function batchUpdate(dataList: BatchValue[]): Promise<void> {
   const queries = dataList
-    .map(({dataKey, data}) => createUpdateQuery(dataKey, data))
+    .map((batchValue) => createUpdateQuery(batchValue))
     .map(({updateTemplate, values}) => ({
       query: updateTemplate,
       params: values,

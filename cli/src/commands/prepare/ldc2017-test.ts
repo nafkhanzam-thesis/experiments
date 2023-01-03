@@ -21,7 +21,6 @@ export default class PrepareLdc2017TestCommand extends Command {
   public async run(): Promise<void> {
     const {flags} = await this.parse(PrepareLdc2017TestCommand);
 
-    fs.existsSync(flags.inputFile);
     // @ts-expect-error delimiter exists.
     let df = await dfd.readCSV(flags.inputFile, {delimiter: ";"});
     df = df.addColumn(

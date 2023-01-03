@@ -1,6 +1,7 @@
 import {Command, Flags} from "@oclif/core";
 import {
   batchUpdate,
+  BatchValue,
   Client,
   Data,
   dataColumns,
@@ -11,8 +12,7 @@ import {
 import {
   readCleanedLines,
   readFile,
-  sizeof,
-  splitChunk,
+  splitChunkAuto,
   tqdm2Chunk,
   zod,
 } from "../../lib.js";
@@ -95,7 +95,7 @@ export default class IntegrateLinesCommand extends Command {
         return lines;
       })
       .flat();
-    const batchValues = lines.map((v, i) => ({
+    const batchValues: BatchValue[] = lines.map((v, i) => ({
       dataKey: {
         ...dataKey,
         idx: i,
@@ -105,18 +105,11 @@ export default class IntegrateLinesCommand extends Command {
       },
     }));
 
-    const totalSize = batchValues.reduce(
-      (prev, curr) => prev + sizeof(curr),
-      0,
+    const chunks = tqdm2Chunk(
+      splitChunkAuto(batchValues, Client.MAX_CHUNK),
+      batchValues.length,
     );
 
-    const chunks = tqdm2Chunk(
-      splitChunk(
-        batchValues,
-        Math.floor((Client.MAX_CHUNK * batchValues.length) / totalSize),
-      ),
-      lines.length,
-    );
     console.log(
       `${dataKey.data_source}-${dataKey.split}-${o.key}-(${lines.length} lines)`,
     );
