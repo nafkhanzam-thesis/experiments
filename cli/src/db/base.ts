@@ -80,6 +80,16 @@ export class Client<
     }
   }
 
+  async count(dataKey: Omit<K, "idx">): Promise<number> {
+    const res = await Client.instance.execute(
+      `SELECT COUNT(*) FROM ${this.table} WHERE ${Object.entries(dataKey)
+        .map(([key]) => `${key}=?`)
+        .join(" AND ")}`,
+      Object.values(dataKey),
+    );
+    return res.first().get(0);
+  }
+
   private createUpdateQuery({dataKey, data}: BatchValue<K, D>): {
     updateTemplate: string;
     values: cassandra.ArrayOrObject;
