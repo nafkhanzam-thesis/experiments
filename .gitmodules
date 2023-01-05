@@ -1,12 +1,12 @@
 [submodule "xl-amr-id"]
 	path = xl-amr-id
-	url = git@github.com:nafkhanzam-thesis/xl-amr-id.git
+	url = https://github.com/nafkhanzam-thesis/xl-amr-id.git
 [submodule "AMRBART"]
 	path = AMRBART
-	url = git@github.com:nafkhanzam-thesis/AMRBART.git
+	url = https://github.com/nafkhanzam-thesis/AMRBART.git
 [submodule "AMR-Process"]
 	path = AMR-Process
-	url = git@github.com:nafkhanzam-thesis/AMR-Process.git
+	url = https://github.com/nafkhanzam-thesis/AMR-Process.git
 [submodule "transition-amr-parser"]
 	path = transition-amr-parser
-	url = git@github.com:nafkhanzam-thesis/transition-amr-parser.git
+	url = https://github.com/nafkhanzam-thesis/transition-amr-parser.git
