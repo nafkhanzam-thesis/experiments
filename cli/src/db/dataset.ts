@@ -1,14 +1,16 @@
 import {BatchValue, Client} from "./base.js";
 import {dataSources, splits} from "./data.js";
 
+export const sourceTypes = ["original", "alternative"] as const;
+
 export type DatasetKey = {
   data_source: typeof dataSources[number];
   split: typeof splits[number];
+  source_type: typeof sourceTypes[number];
   idx: number;
 };
 
 export type Dataset = {
-  source_type?: string | undefined;
   amr?: string | undefined;
   amr_dfs?: string | undefined;
   en?: string | undefined;
@@ -20,7 +22,6 @@ export type Dataset = {
 export type DatasetBatchValue = BatchValue<DatasetKey, Dataset>;
 
 export const datasetColumns: readonly [keyof Dataset, ...(keyof Dataset)[]] = [
-  "source_type",
   "amr",
   "amr_dfs",
   "en",

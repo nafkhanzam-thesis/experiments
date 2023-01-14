@@ -23,11 +23,13 @@ export default class PrepareAMRBARTCommand extends Command {
     fs.ensureDirSync(flags.outputDir);
 
     const datasetKeys: Omit<DatasetKey, "idx">[] = [
-      {data_source: "IWSLT17", split: "train"},
-      {data_source: "PANL-BPPT", split: "train"},
-      {data_source: "LDC2020", split: "train"},
-      {data_source: "LDC2020", split: "dev"},
-      {data_source: "LDC2017", split: "test"},
+      {data_source: "IWSLT17", split: "train", source_type: "original"},
+      {data_source: "PANL-BPPT", split: "train", source_type: "original"},
+      {data_source: "LDC2020", split: "train", source_type: "original"},
+      {data_source: "LDC2020", split: "train", source_type: "alternative"},
+      {data_source: "LDC2020", split: "dev", source_type: "original"},
+      {data_source: "LDC2020", split: "dev", source_type: "alternative"},
+      {data_source: "LDC2017", split: "test", source_type: "original"},
     ];
     const datasetArrays: Record<
       DatasetKey["split"],
@@ -48,7 +50,7 @@ export default class PrepareAMRBARTCommand extends Command {
         total,
         {
           suffix: (v) =>
-            `${v.dataKey.data_source}-${v.dataKey.split}-${v.dataKey.idx}`,
+            `${v.dataKey.data_source}-${v.dataKey.split}-${v.dataKey.source_type}-${v.dataKey.idx}`,
         },
       );
       for await (const {dataKey, data} of fetchGen) {

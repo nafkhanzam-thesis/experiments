@@ -1,5 +1,5 @@
 import cassandra from "cassandra-driver";
-import {env} from "../env";
+import {env} from "../env.js";
 
 export type BatchValue<K, D> = {dataKey: K; data: D};
 

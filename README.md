@@ -6,9 +6,9 @@
 
 |                         | **amr** | **amr_dfs** | **en** | **id** | **en_back** | **en_alt** | **id_alt** | **en_alt_back** |
 | ----------------------- | ------- | ----------- | ------ | ------ | ----------- | ---------- | ---------- | --------------- |
-| **LDC2017-test**        | 0       | -           | 0      | 0      | -           | -          | -          | -               |
+| **LDC2017-test**        | 0       | 2           | 0      | 0      | -           | -          | -          | -               |
 | **LDC2020-train-dev**   | 0       | 2           | 0      | 4      | 5           | 3          | 4          | 5               |
-| **PANL-BPPT & IWSLT17** | 1       | 2           | 0      | 0      | -           | 3          | 4          | 5               |
+| **PANL-BPPT & IWSLT17** | 1       | 2           | 0      | 0      | -           | -          | -          | -               |
 
 - 0: Available data.
 - 1: AMR parse parallel corpora.
@@ -35,20 +35,20 @@ The filtered data will be saved to `dataset` table.
 
 All:
 
-- `data_source` = 'LDC2020'
+- `data_source` == 'LDC2020'
 
 Original sentences:
 
-- `id__en__nn_rank` = 1
+- `id__en__nn_rank` == 1
 
 Alternative sentences:
 
 - 0.1 < `en__en_alt__bleu` < 0.9
-- `id_alt__en_alt__nn_rank` = 1
+- `id_alt__en_alt__nn_rank` == 1
 
 ### Evaluate final dataset
 
-- BLEU score: Average of `en__en_back__bleu` and `en_alt__en_alt_back__bleu`.
+- BLEU score: ~~Average of `en__en_back__bleu` and `en_alt__en_alt_back__bleu`.~~ Corpus-level BLEU score of all combined dataset.
 - Cosine similarity: 1 - Average of `labse_distance` and `alt__labse_distance`.
 
 ## Schema
@@ -139,9 +139,9 @@ CREATE TABLE data (
 CREATE TABLE dataset (
   data_source text,
   split text,
+  source_type text, -- {original,alternative}
   idx int,
 
-  source_type text, -- {original,alt}
   amr text,
   amr_dfs text,
 
@@ -150,7 +150,7 @@ CREATE TABLE dataset (
   labse_distance double,
   back_bleu double,
 
-  PRIMARY KEY (data_source, split, idx)
+  PRIMARY KEY (data_source, split, source_type, idx)
 );
 ```
 
@@ -191,9 +191,9 @@ CREATE UNLOGGED TABLE data (
 CREATE UNLOGGED TABLE dataset (
   data_source text,
   split text,
+  source_type text, -- {original,alternative}
   idx int,
 
-  source_type text, -- {original,alt}
   amr text,
   amr_dfs text,
 
@@ -202,6 +202,6 @@ CREATE UNLOGGED TABLE dataset (
   labse_distance double precision,
   back_bleu double precision,
 
-  PRIMARY KEY (data_source, split, idx)
+  PRIMARY KEY (data_source, split, source_type, idx)
 );
 ```

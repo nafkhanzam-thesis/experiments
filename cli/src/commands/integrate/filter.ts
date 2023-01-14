@@ -8,6 +8,7 @@ const totalEstimation = {
   "IWSLT17-train": 107329,
   "LDC2020-train": 55635,
   "LDC2020-dev": 1722,
+  "LDC2017-test": 1371,
 };
 
 export default class IntegrateFilterCommand extends Command {
@@ -68,10 +69,10 @@ export default class IntegrateFilterCommand extends Command {
             dataKey: {
               data_source: dataKey.data_source,
               split: dataKey.split,
+              source_type: `original`,
               idx: dataKey.idx,
             },
             data: {
-              source_type: `original`,
               amr: data.amr,
               amr_dfs: data.amr_dfs,
               en: data.en,
@@ -86,10 +87,10 @@ export default class IntegrateFilterCommand extends Command {
             dataKey: {
               data_source: dataKey.data_source,
               split: dataKey.split,
+              source_type: `alternative`,
               idx: dataKey.idx,
             },
             data: {
-              source_type: `alternative`,
               amr: data.amr,
               amr_dfs: data.amr_dfs,
               en: data.en_alt,
@@ -104,10 +105,10 @@ export default class IntegrateFilterCommand extends Command {
           dataKey: {
             data_source: dataKey.data_source,
             split: dataKey.split,
+            source_type: `original`,
             idx: dataKey.idx,
           },
           data: {
-            source_type: `original`,
             amr: data.amr,
             amr_dfs: data.amr_dfs,
             en: data.en,
