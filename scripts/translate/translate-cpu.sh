@@ -14,7 +14,7 @@ do
   if [ -e "$IN" ]; then
     if [ ! -e $OUT ]; then
       echo "Translating $i...";
-      python scripts/translate-cpu.py \
+      python scripts/translate/translate-cpu.py \
         -m $MODEL \
         -i $IN \
         -o $OUT;

@@ -12,9 +12,13 @@ export default class PrepareLdc2017TestCommand extends Command {
       description: `Input file.`,
       default: `data/original/amr-release-2.0-amrs-test-all.sentences.ms.txt`,
     }),
-    outputFile: Flags.string({
-      description: `Output file.`,
+    outputFileId: Flags.string({
+      description: `Output id file.`,
       default: `data/outputs/translate/ldc2017-test.id`,
+    }),
+    outputFileEn: Flags.string({
+      description: `Output en file.`,
+      default: `data/outputs/translate/ldc2017-test.en`,
     }),
   };
 
@@ -28,10 +32,17 @@ export default class PrepareLdc2017TestCommand extends Command {
       df.column(`key`).map((v) => orders.indexOf(v)),
     );
     df = df.sortValues(`key_order`);
-    const idList = df.column(`translation`).values;
-    fs.ensureFileSync(flags.outputFile);
+    const enList = df.column(`sentence`).values;
+    fs.ensureFileSync(flags.outputFileEn);
     writeCleanLines(
-      flags.outputFile,
+      flags.outputFileEn,
+      enList.flat().map((v) => String(v)),
+    );
+
+    const idList = df.column(`translation`).values;
+    fs.ensureFileSync(flags.outputFileId);
+    writeCleanLines(
+      flags.outputFileId,
       idList.flat().map((v) => String(v)),
     );
 

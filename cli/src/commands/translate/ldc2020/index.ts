@@ -67,9 +67,6 @@ export default class TranslateLdc2020Command extends Command {
       });
     }
 
-    console.log(outFiles[outFiles.length - 2]);
-    console.log(outFiles[outFiles.length - 1]);
-
     this.log(`Merging results...`);
     fs.ensureFileSync(flags.outputFile);
     const concatted: Buffer[] = [];
