@@ -9,7 +9,7 @@ echo "Translating [$a, $b)";
 
 for (( i=$a; i<$b; ++i ))
 do
-  IN="$CWD/$i"
+  IN="$CWD/$i.split"
   OUT="$CWD/$i.out"
   if [ -e "$IN" ]; then
     if [ ! -e $OUT ]; then
