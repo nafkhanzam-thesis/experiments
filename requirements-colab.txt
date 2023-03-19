@@ -6,7 +6,7 @@ configargparse
 sacrebleu
 rouge-score
 datasets==2.4.0
-transformers==4.21.3
+transformers
 nltk
 cached_property
 networkx

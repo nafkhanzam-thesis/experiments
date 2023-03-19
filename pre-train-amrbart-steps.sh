@@ -1,24 +1,16 @@
-git clone https://github.com/NVIDIA/apex
-cd apex
-python -m pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
-cd ..
-git clone https://github.com/nafkhanzam-thesis/experiments.git
-cd experiments
-git submodule init
-git submodule sync
-git submodule update
+git clone https://github.com/nafkhanzam-thesis/AMRBART.git
 cd AMRBART
-python -m pip install gdown
-gdown 1oFKrRe_v9qz8_toqzH65Z5Nqari9NDdg
+wget https://storage.nafkhanzam.com/thesis/backups/amrbart.tar.gz
 mkdir datasets
+tar -xzvf amrbart.tar.gz -C datasets
 mkdir models
-sudo apt install unzip
-unzip amrbart.zip -d datasets
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt-get install git-lfs
 git lfs install
 pushd models
-git clone https://huggingface.co/facebook/mbart-large-50.git
+wget https://storage.nafkhanzam.com/thesis/backups/checkpoint-amrbart-old-100000.tar.gz
+tar -xzvf checkpoint-amrbart-old-100000.tar.gz
+mv checkpoint-last-255.759/ pre-trained-amrbart-old-100000/
 popd
 cd mbart-pre-train
 python -m pip install --user pathlib ruamel-yaml

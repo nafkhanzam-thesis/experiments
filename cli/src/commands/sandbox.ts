@@ -1,18 +1,32 @@
 import {Command} from "@oclif/core";
-import {dfd} from "../lib.js";
+import {datasetDb} from "../db/dataset.js";
+import {writeCleanLines} from "../lib.js";
 
 export default class SandboxCommand extends Command {
   async run(): Promise<void> {
-    const df = await dfd.readCSV(
-      "/home/nafkhanzam/kode/nafkhanzam/thesis/dsbulk/data-wo-labse/output-000004.csv",
+    const fetchGen = datasetDb.batchSelect(
+      {
+        data_source: "LDC2017",
+        split: "test",
+        source_type: "original",
+      },
+      ["amr_dfs"],
+      1000,
     );
 
-    const colName = "en__en_back__bleu";
-    const df_filtered = df.query(df.column("split").eq("dev" as any));
-    const col = df_filtered.column(colName);
-    const sum = col.asType("float32").sum();
-    const count = col.asType("float32").count();
-    const avg = sum / count;
-    console.log({sum, count, avg});
+    const lines: string[] = [];
+    let befIdx = -1;
+    for await (const {dataKey, data} of fetchGen) {
+      if (!data.amr_dfs) {
+        return this.error(`data.amr_dfs is undefined.`);
+      }
+      if (dataKey.idx !== befIdx + 1) {
+        return this.error(`idx is not ordered.`);
+      }
+      befIdx = dataKey.idx;
+      lines.push(data.amr_dfs);
+    }
+
+    writeCleanLines("data/outputs/ldc2017/amr", lines);
   }
 }

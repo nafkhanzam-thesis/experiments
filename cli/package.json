@@ -1,7 +1,7 @@
 {
   "name": "nafkhanzam-thesis-experiments-cli",
   "version": "0.0.1",
-  "description": "Freeze your dependencies in `package.json`.",
+  "description": "nafkhanzam-thesis-experiments-cli",
   "author": "Moch. Nafkhan Alzamzami @nafkhanzam",
   "bin": {
     "nafkhanzam-thesis-cli": "./bin/run.js"

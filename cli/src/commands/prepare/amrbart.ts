@@ -55,10 +55,12 @@ export default class PrepareAMRBARTCommand extends Command {
       );
       for await (const {dataKey, data} of fetchGen) {
         const amr = zod.string().parse(data.amr_dfs);
-        datasetArrays[dataKey.split].push({
-          amr,
-          sent: zod.string().parse(data.en),
-        });
+        if (dataKey.split !== "test") {
+          datasetArrays[dataKey.split].push({
+            amr,
+            sent: zod.string().parse(data.en),
+          });
+        }
         datasetArrays[dataKey.split].push({
           amr,
           sent: zod.string().parse(data.id),
